@@ -1,0 +1,14 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "func-names": ["error", "never"],
+    "jsx-quotes": ["error", "prefer-single"],
+    "jsx-a11y/href-no-hash": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-no-bind": [1, {
+      "ignoreRefs":  false,
+      "allowArrowFunctions": true,
+      "allowBind": true,
+    }]
+  }
+}
