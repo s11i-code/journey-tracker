@@ -17,7 +17,7 @@ export default StyleSheet.create({
   },
   heading: {
     height: 40,
-    marginTop: 20,
+    marginTop: 22,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -52,5 +52,15 @@ export default StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  modal: {
+    paddingHorizontal: 2,
+    paddingTop: 100,
+  },
+  modalTitle: {
+    textAlign: 'center',
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: veryDarkGrey,
   },
 });
