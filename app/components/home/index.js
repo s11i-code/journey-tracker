@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
+import { connect } from 'react-redux';
 import { Button, Tile, Modal } from '../shared';
 import JourneyForm from './JourneyForm';
 
@@ -13,6 +15,7 @@ class Container extends Component {
 
   render() {
     const { journeyModalOpen } = this.state;
+    console.warn('journeys: ', JSON.stringify(this.props.journeys));
 
     return (
       <View style={{ flex: 1, justifyContent: 'flex-start' }}>
@@ -29,4 +32,22 @@ class Container extends Component {
   }
 }
 
-export default Container;
+Container.propTypes = {
+  journeys: PropTypes.arrayOf(
+    PropTypes.shape({
+      originId: PropTypes.number,
+    })),
+};
+
+Container.defaultProps = {
+  journeys: [],
+};
+
+const mapStateToProps = state => ({
+  journeys: state.journeys,
+});
+
+export default connect(
+  mapStateToProps,
+  null,
+)(Container);

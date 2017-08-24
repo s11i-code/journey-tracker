@@ -1,28 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Picker, View } from 'react-native';
-import { Button } from '../shared';
+import { connect } from 'react-redux';
 import shortid from 'shortid';
+import { createJourney } from '../../actions';
+import { Button } from '../shared';
 
 class Form extends Component {
   constructor(props) {
     super(props);
-    this.state = { locationId: props.locations[0].id };
+    this.state = { locationId: (props.locations[0] || {}).id };
   }
 
   render() {
     const { locationId } = this.state;
-    const { locations } = this.props;
+    const { locations, onSubmit } = this.props;
+
     return (
       <View>
-        <Picker
-          selectedValue={locationId}
-          onValueChange={id => this.setState({ locationId: id })}
-        >
-          { locations.map(location => <Picker.Item key={shortid.generate()} label={location.name} value={location.id} />) }
+        { locations.length ? (
+          <Picker
+            selectedValue={locationId}
+            onValueChange={id => this.setState({ locationId: id })}
+          >
+            { locations.map(location => (
+              <Picker.Item
+                key={shortid.generate()}
+                label={location.name}
+                value={location.id}
+              />)) }
+          </Picker>
+        ) : null }
 
-        </Picker>
-        <Button text='GO!' />
+        <Button text='GO!' onPress={onSubmit.bind(null, locationId)} />
       </View>);
   }
 }
@@ -32,10 +42,24 @@ Form.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
   })),
+  onSubmit: PropTypes.func.isRequired,
 };
 
 Form.defaultProps = {
-  locations: JSON.parse('[{"id":1,"latitude":60.1515578,"longitude":24.8840869,"name":"Home","created_at":"2017-08-22T13:07:33.172Z","updated_at":"2017-08-22T13:07:33.172Z"},{"id":2,"latitude":60.1663803,"longitude":24.923402615,"name":"Kamppi","created_at":"2017-08-22T13:07:41.594Z","updated_at":"2017-08-22T13:07:41.594Z"}]'),
+  locations: [],
 };
 
-export default Form;
+const mapStateToProps = state => ({
+  locations: state.locations,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: (originId) => {
+    dispatch(createJourney(originId));
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Form);
