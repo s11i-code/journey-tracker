@@ -13,7 +13,7 @@ const Tile = props => (
 
 Tile.propTypes = {
   children: PropTypes.node.isRequired,
-  style: React.PropTypes.shape({}),
+  style: PropTypes.shape({}),
 };
 
 Tile.defaultProps = {

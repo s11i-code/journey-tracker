@@ -14,7 +14,7 @@ const CustomisedButton = props => (
 CustomisedButton.propTypes = {
   onPress: PropTypes.func.isRequired,
   children: PropTypes.node,
-  text: React.PropTypes.string,
+  text: PropTypes.string,
 };
 
 CustomisedButton.defaultProps = {
