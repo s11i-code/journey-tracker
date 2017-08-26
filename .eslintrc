@@ -1,6 +1,10 @@
 {
+  "globals": {
+    "fetch": false
+  },
   "extends": "airbnb",
   "rules": {
+    "no-debugger": "off",
     "func-names": ["error", "never"],
     "jsx-quotes": ["error", "prefer-single"],
     "jsx-a11y/href-no-hash": 0,
