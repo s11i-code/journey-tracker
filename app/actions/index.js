@@ -1,6 +1,18 @@
 import * as types from './types';
 import { JOURNEYS_URL, LOCATIONS_URL } from '../utils/urls';
 
+export const fetchJourneys = () => dispatch => (
+  fetch(JOURNEYS_URL)
+    .then(res => res.json())
+    .then((journeys) => {
+      dispatch({
+        type: types.FETCH_JOURNEYS,
+        payload: journeys,
+      });
+    })
+);
+
+
 export const fetchLocations = () => dispatch => (
   fetch(LOCATIONS_URL)
     .then(res => res.json())

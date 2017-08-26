@@ -31,7 +31,6 @@ class Form extends Component {
   render() {
     const { locationId } = this.state;
     const { locations, onSubmit } = this.props;
-    console.warn('locations', JSON.stringify(locations));
 
     return (
       <View>

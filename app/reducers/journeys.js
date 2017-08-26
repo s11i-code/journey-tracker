@@ -3,7 +3,7 @@ import { FETCH_JOURNEYS, CREATE_JOURNEY } from '../actions/types';
 export default (state = [], action) => {
   switch (action.type) {
     case FETCH_JOURNEYS:
-      return state;
+      return [...state, ...action.payload];
     case CREATE_JOURNEY:
       return [
         ...state,
