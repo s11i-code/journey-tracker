@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchLocations, fetchJourneys } from '../actions';
@@ -26,6 +26,10 @@ class Container extends Component {
         })),
       fetchLocations: PropTypes.func.isRequired,
       fetchJourneys: PropTypes.func.isRequired,
+      loading: PropTypes.shape({
+        locations: PropTypes.bool.isRequired,
+        journeys: PropTypes.bool.isRequired,
+      }).isRequired,
     };
   }
 
@@ -35,12 +39,12 @@ class Container extends Component {
   }
 
   render() {
-    const { journeys, locations } = this.props;
+    const { journeys, locations, loading } = this.props;
     const ongoingJourneys = journeys.filter(journey => !journey.destination);
 
-    console.warn('journeys', journeys);
-    console.warn('locations', locations);
-
+    if (loading.locations || loading.journeys) {
+      return (<ActivityIndicator style={{ paddingTop: 40 }} size='large' />);
+    }
     return (
       <View>
         {ongoingJourneys.length ?
@@ -54,6 +58,7 @@ class Container extends Component {
 const mapStateToProps = state => ({
   locations: state.locations,
   journeys: state.journeys,
+  loading: state.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
