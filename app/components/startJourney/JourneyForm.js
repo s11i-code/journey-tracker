@@ -7,6 +7,22 @@ import { createJourney } from '../../actions';
 import { Button } from '../shared';
 
 class Form extends Component {
+  static get defaultProps() {
+    return {
+      locations: [],
+    };
+  }
+
+  static get propTypes() {
+    return {
+      locations: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+      })),
+      onSubmit: PropTypes.func.isRequired,
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = { locationId: (props.locations[0] || {}).id };
@@ -37,17 +53,6 @@ class Form extends Component {
   }
 }
 
-Form.propTypes = {
-  locations: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-  })),
-  onSubmit: PropTypes.func.isRequired,
-};
-
-Form.defaultProps = {
-  locations: [],
-};
 
 const mapStateToProps = state => ({
   locations: state.locations,

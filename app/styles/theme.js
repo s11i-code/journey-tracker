@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 const veryDarkGrey = 'rgb(78, 93, 108)';
 const darkerGrey = 'rgb(151, 163, 180)';
+const silverGrey = '#b5bdc5';
 const midGrey = '#d2d7df';
 const waterColor = 'rgb(246, 247, 250)';
 const darkCyan = 'rgb(0, 119, 138)';
@@ -49,6 +50,16 @@ export default StyleSheet.create({
     borderColor: darkCyan,
   },
   defaultButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  subtleButton: {
+    backgroundColor: silverGrey,
+    padding: 20,
+    borderColor: silverGrey,
+  },
+  subtleButtonText: {
     color: 'white',
     fontWeight: 'bold',
     fontSize: 16,

@@ -1,3 +1,3 @@
-export const ADD_TODO = 'ADD_TODO';
 export const FETCH_LOCATIONS = 'FETCH_LOCATIONS';
+export const FETCH_JOURNEYS = 'FETCH_JOURNEYS';
 export const CREATE_JOURNEY = 'CREATE_JOURNEY';
