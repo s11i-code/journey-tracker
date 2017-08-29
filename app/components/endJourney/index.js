@@ -48,8 +48,8 @@ export default class extends Component {
           <Text>You started a journey from {origin.name} at {startedAgo}.</Text>
         </Tile>
         <View style={styles.buttonArea}>
-          <Button theme={'subtle'} style={styles.button} text='Discard' onPress={() => {}} />
-          <Button style={styles.button} text='End Journey' onPress={() => {}} />
+          <Button theme={'subtle'} text='Discard' icon='trash' style={styles.button} onPress={() => {}} />
+          <Button style={styles.button} text='End Journey' icon='flag' onPress={() => {}} />
         </View>
       </View>
     );
