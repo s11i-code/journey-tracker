@@ -3,7 +3,8 @@ import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchLocations, fetchJourneys } from '../actions';
-import HomePage from './home';
+import StartJourneyPage from './startJourney';
+import EndJourneyPage from './endJourney';
 
 class Container extends Component {
   static get defaultProps() {
@@ -34,10 +35,18 @@ class Container extends Component {
   }
 
   render() {
-    console.warn('journeys', this.props.journeys);
-    console.warn('locations', this.props.locations);
+    const { journeys, locations } = this.props;
+    const ongoingJourneys = journeys.filter(journey => !journey.destination);
+
+    console.warn('journeys', journeys);
+    console.warn('locations', locations);
+
     return (
-      <View><HomePage {...this.props} /></View>
+      <View>
+        {ongoingJourneys.length ?
+          (<EndJourneyPage locations={locations} journey={ongoingJourneys[0]} />) :
+          (<StartJourneyPage {...this.props} />)}
+      </View>
     );
   }
 }
