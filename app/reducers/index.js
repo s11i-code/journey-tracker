@@ -3,7 +3,14 @@ import locations from './locations';
 import journeys from './journeys';
 import { SET_LOADING_STATUS } from '../actions/types';
 
-const loading = (state = { locations: false, journeys: false }, action) => {
+const DEFAULT_LOADING_STATUSES = {
+  locations: false,
+  journeys: false,
+  deleteJourney: false,
+  createJourney: false,
+};
+
+const loading = (state = DEFAULT_LOADING_STATUSES, action) => {
   switch (action.type) {
     case SET_LOADING_STATUS:
       return Object.assign({}, state, action.payload);

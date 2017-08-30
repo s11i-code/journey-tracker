@@ -20,6 +20,7 @@ class Form extends Component {
         name: PropTypes.string,
       })),
       onSubmit: PropTypes.func.isRequired,
+      submitPressed: PropTypes.bool.isRequired,
     };
   }
 
@@ -30,7 +31,7 @@ class Form extends Component {
 
   render() {
     const { locationId } = this.state;
-    const { locations, onSubmit } = this.props;
+    const { locations, onSubmit, submitPressed } = this.props;
 
     return (
       <View>
@@ -48,7 +49,11 @@ class Form extends Component {
           </Picker>
         ) : null }
 
-        <Button text='GO!' onPress={onSubmit.bind(null, locationId)} />
+        <Button
+          text='GO!'
+          onPress={onSubmit.bind(null, locationId)}
+          loading={submitPressed}
+        />
       </View>);
   }
 }
@@ -56,6 +61,7 @@ class Form extends Component {
 
 const mapStateToProps = state => ({
   locations: state.locations,
+  submitPressed: state.loading.createJourney,
 });
 
 const mapDispatchToProps = dispatch => ({
