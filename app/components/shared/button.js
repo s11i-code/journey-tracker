@@ -1,24 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text } from 'react-native';
+import { Text, ActivityIndicator as Spinner } from 'react-native';
 import Button from 'apsl-react-native-button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import theme from '../../styles/theme';
 
 const CustomisedButton = (props) => {
+  const { loading, icon, children, style, onPress, text } = props;
   const buttonStyle = theme[`${props.theme}Button`];
   const textStyle = theme[`${props.theme}ButtonText`];
-
+  const displayIcon = icon && !loading;
   return (
-    <Button style={[buttonStyle, props.style]} onPress={props.onPress}>
-      { props.text ? <Text style={textStyle}>{props.text}</Text> : null}
-      { props.icon ? <Icon name={props.icon} size={20} style={[textStyle, { paddingLeft: 6 }]} /> : null}
-      { props.children }
+    <Button loading={loading} style={[buttonStyle, style]} onPress={onPress}>
+      { text ? <Text style={textStyle}>{text}</Text> : null}
+      { displayIcon ? <Icon name={icon} size={20} style={[textStyle, { paddingLeft: 6 }]} /> : null}
+      { loading ? <Spinner style={theme.buttonSpinner} color={textStyle.color} /> : null }
+      { children }
     </Button>
   );
 };
 
 CustomisedButton.propTypes = {
+  loading: PropTypes.bool,
   onPress: PropTypes.func.isRequired,
   children: PropTypes.node,
   style: PropTypes.shape({}),
@@ -28,6 +31,7 @@ CustomisedButton.propTypes = {
 };
 
 CustomisedButton.defaultProps = {
+  loading: false,
   text: null,
   children: null,
   icon: null,
