@@ -1,4 +1,4 @@
-import { FETCH_JOURNEYS, CREATE_JOURNEY } from '../actions/types';
+import { FETCH_JOURNEYS, CREATE_JOURNEY, DELETE_JOURNEY } from '../actions/types';
 
 export default (state = [], action) => {
   switch (action.type) {
@@ -12,6 +12,8 @@ export default (state = [], action) => {
           createdAt: new Date(),
         },
       ];
+    case DELETE_JOURNEY:
+      return state.filter(journey => journey.id !== action.payload.id);
     default:
       return state;
   }

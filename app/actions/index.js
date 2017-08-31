@@ -45,7 +45,7 @@ export const fetchLocations = () => (dispatch) => {
 };
 
 export const createJourney = originId => (dispatch) => {
-  dispatch(setLoading(true));
+  dispatch(setLoading({ journeys: true }));
 
   return (
     fetch(JOURNEYS_URL,
@@ -58,10 +58,31 @@ export const createJourney = originId => (dispatch) => {
       })
       .then(res => res.json())
       .then((journey) => {
-        dispatch(setLoading(false));
+        dispatch(setLoading({ createJourney: false }));
         dispatch({
           type: types.CREATE_JOURNEY,
           payload: journey,
+        });
+      })
+
+  );
+};
+
+export const deleteJourney = id => (dispatch) => {
+  dispatch(setLoading({ deleteJourney: true }));
+  return (
+    fetch(`${JOURNEYS_URL}/${id}`,
+      { headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'DELETE',
+      })
+      .then(() => {
+        dispatch(setLoading({ deleteJourney: false }));
+        dispatch({
+          type: types.DELETE_JOURNEY,
+          payload: { id },
         });
       })
 

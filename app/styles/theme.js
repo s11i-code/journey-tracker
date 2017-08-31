@@ -1,5 +1,3 @@
-import { StyleSheet } from 'react-native';
-
 const veryDarkGrey = 'rgb(78, 93, 108)';
 const darkerGrey = 'rgb(151, 163, 180)';
 const silverGrey = '#b5bdc5';
@@ -7,7 +5,7 @@ const midGrey = '#d2d7df';
 const waterColor = 'rgb(246, 247, 250)';
 const darkCyan = 'rgb(0, 119, 138)';
 
-export default StyleSheet.create({
+export default {
   layout: {
     flex: 1,
   },
@@ -64,6 +62,10 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  buttonSpinner: {
+    paddingLeft: 8,
+    paddingTop: 16,
+  },
   modal: {
     paddingHorizontal: 2,
     paddingTop: 100,
@@ -74,4 +76,4 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: veryDarkGrey,
   },
-});
+};
