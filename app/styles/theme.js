@@ -1,11 +1,12 @@
 const veryDarkGrey = 'rgb(78, 93, 108)';
-const darkerGrey = 'rgb(151, 163, 180)';
 const silverGrey = '#b5bdc5';
+const accentColor = 'rgb(156, 39, 176)';
 const midGrey = '#d2d7df';
 const waterColor = 'rgb(246, 247, 250)';
-const darkCyan = 'rgb(0, 119, 138)';
+// const darkerGrey = 'rgb(151, 163, 180)';
 
 export default {
+  accentColor,
   layout: {
     flex: 1,
   },
@@ -13,6 +14,12 @@ export default {
     padding: 2,
     backgroundColor: waterColor,
     flex: 1,
+    marginBottom: 40,
+  },
+  tabs: {
+    backgroundColor: 'white',
+    position: 'absolute',
+    bottom: 0, // TODO: remove margin (only here so that the remote debugger warning doesn't block tab bar)
   },
   heading: {
     height: 40,
@@ -41,11 +48,12 @@ export default {
     fontSize: 14,
     lineHeight: 20,
     color: veryDarkGrey,
+    paddingBottom: 8,
   },
   defaultButton: {
-    backgroundColor: darkCyan,
+    backgroundColor: accentColor,
     padding: 20,
-    borderColor: darkCyan,
+    borderColor: accentColor,
   },
   defaultButtonText: {
     color: 'white',
