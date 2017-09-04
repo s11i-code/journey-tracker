@@ -19,7 +19,6 @@ export default {
   tabs: {
     backgroundColor: 'white',
     position: 'absolute',
-    bottom: 0, // TODO: remove margin (only here so that the remote debugger warning doesn't block tab bar)
   },
   heading: {
     height: 40,

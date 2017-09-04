@@ -26,7 +26,7 @@ const Component = (props) => {
 
 Component.propTypes = {
   title: PropTypes.string,
-  visible: PropTypes.bool.isRequired,
+  visible: PropTypes.bool,
   children: PropTypes.node,
   onRequestClose: PropTypes.func,
 };
@@ -34,6 +34,7 @@ Component.propTypes = {
 Component.defaultProps = {
   title: null,
   children: null,
+  visible: true,
   onRequestClose: () => {},
 };
 export default Component;

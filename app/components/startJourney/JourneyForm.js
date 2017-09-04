@@ -60,7 +60,6 @@ class Form extends Component {
 
 
 const mapStateToProps = state => ({
-  page: state.page,
   locations: state.locations,
   submitPressed: state.loading.createJourney,
 });

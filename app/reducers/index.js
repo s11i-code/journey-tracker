@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import locations from './locations';
 import journeys from './journeys';
-import { SET_LOADING_STATUS } from '../actions/types';
+import { SET_LOADING_STATUS, CHANGE_PAGE } from '../actions/types';
 
 const DEFAULT_LOADING_STATUSES = {
   locations: false,
@@ -10,10 +10,19 @@ const DEFAULT_LOADING_STATUSES = {
   createJourney: false,
 };
 
-const loading = (state = DEFAULT_LOADING_STATUSES, action) => {
+const loadingReducer = (state = DEFAULT_LOADING_STATUSES, action) => {
   switch (action.type) {
     case SET_LOADING_STATUS:
       return Object.assign({}, state, action.payload);
+    default:
+      return state;
+  }
+};
+const pageReducer = (state = 'home', action) => {
+  switch (action.type) {
+    case CHANGE_PAGE: {
+      return action.payload.page;
+    }
     default:
       return state;
   }
@@ -22,5 +31,6 @@ const loading = (state = DEFAULT_LOADING_STATUSES, action) => {
 export default combineReducers({
   locations,
   journeys,
-  loading,
+  loading: loadingReducer,
+  page: pageReducer,
 });

@@ -1,9 +1,9 @@
 import * as types from './types';
 import { JOURNEYS_URL, LOCATIONS_URL } from '../utils/urls';
 
-export const setLoadingStatus = status => ({
-  type: types.SET_LOADING_STATUS,
-  payload: status,
+export const changePage = page => ({
+  type: types.CHANGE_PAGE,
+  payload: { page },
 });
 
 export const setLoading = status => ({
@@ -27,7 +27,6 @@ export const fetchJourneys = () => (dispatch) => {
       })
   );
 };
-
 
 export const fetchLocations = () => (dispatch) => {
   dispatch(setLoading({ locations: true }));
@@ -58,11 +57,12 @@ export const createJourney = originId => (dispatch) => {
       })
       .then(res => res.json())
       .then((journey) => {
-        dispatch(setLoading({ createJourney: false }));
         dispatch({
           type: types.CREATE_JOURNEY,
           payload: journey,
         });
+        dispatch(setLoading({ journeys: false }));
+        dispatch(changePage('home'));
       })
 
   );

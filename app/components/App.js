@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Tabs from 'react-native-tabs';
 import theme from '../styles/theme';
-import { fetchLocations, fetchJourneys } from '../actions';
+import { fetchLocations, fetchJourneys, changePage } from '../actions';
 import HomePage from './home';
 import StartJourneyPage from './startJourney';
 
@@ -26,17 +26,15 @@ class Container extends Component {
         PropTypes.shape({
           name: PropTypes.string,
         })),
+      page: PropTypes.string.isRequired,
       fetchLocations: PropTypes.func.isRequired,
       fetchJourneys: PropTypes.func.isRequired,
+      changePage: PropTypes.func.isRequired,
       loading: PropTypes.shape({
         locations: PropTypes.bool.isRequired,
         journeys: PropTypes.bool.isRequired,
       }).isRequired,
     };
-  }
-  constructor() {
-    super();
-    this.state = { page: 'home' };
   }
 
   componentWillMount() {
@@ -44,14 +42,13 @@ class Container extends Component {
     this.props.fetchJourneys();
   }
 
-  renderPage() {
-    const { journeys, locations } = this.props;
-    const ongoingJourneys = journeys
-      .filter(journey => !journey.destination)
-      .sort((j1, j2) => j1.id < j2.id);
-    const newestOngoingJourney = ongoingJourneys[0] ? ongoingJourneys[0] : null;
 
-    const { page } = this.state;
+  renderPage() {
+    const { journeys, locations, page } = this.props;
+
+    const ongoingJourneys = journeys
+      .filter(journey => !journey.destination);
+    const newestOngoingJourney = ongoingJourneys[0] ? ongoingJourneys[0] : null;
 
     switch (page) {
       case 'home':
@@ -64,8 +61,7 @@ class Container extends Component {
   }
 
   render() {
-    const { loading } = this.props;
-    const { page } = this.state;
+    const { loading, page } = this.props;
 
     if (loading.locations || loading.journeys) {
       return (<ActivityIndicator style={{ paddingTop: 40 }} size='large' />);
@@ -75,12 +71,12 @@ class Container extends Component {
         { this.renderPage() }
         <Tabs
           selected={page}
-          style={theme.tab}
+          style={theme.tabs}
           selectedStyle={{ color: theme.accentColor }}
-          onSelect={el => this.setState({ page: el.props.name })}
+          onSelect={el => this.props.changePage(el.props.name)}
         >
           <Text name='home'>Home</Text>
-          <Text name='startJourney' selectedStyle={{ borderTopWidth: 2, borderTopColor: theme.accentColor }}>Start Journey</Text>
+          <Text name='startJourney' >Start Journey</Text>
         </Tabs>
 
       </View>
@@ -88,11 +84,14 @@ class Container extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  locations: state.locations,
-  journeys: state.journeys,
-  loading: state.loading,
-});
+const mapStateToProps = state =>
+  ({
+    page: state.page,
+    locations: state.locations,
+    journeys: state.journeys,
+    loading: state.loading,
+  })
+;
 
 const mapDispatchToProps = dispatch => ({
   fetchLocations: () => {
@@ -100,6 +99,9 @@ const mapDispatchToProps = dispatch => ({
   },
   fetchJourneys: () => {
     dispatch(fetchJourneys());
+  },
+  changePage: (page) => {
+    dispatch(changePage(page));
   },
 });
 

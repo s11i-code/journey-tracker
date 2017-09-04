@@ -1,3 +1,4 @@
+export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const FETCH_LOCATIONS = 'FETCH_LOCATIONS';
 export const FETCH_JOURNEYS = 'FETCH_JOURNEYS';
 export const CREATE_JOURNEY = 'CREATE_JOURNEY';
