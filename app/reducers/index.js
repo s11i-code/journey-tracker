@@ -18,6 +18,8 @@ const loadingReducer = (state = DEFAULT_LOADING_STATUSES, action) => {
       return state;
   }
 };
+
+// TODO CHANGE BACK TO HOME, DEV ONLY
 const pageReducer = (state = 'home', action) => {
   switch (action.type) {
     case CHANGE_PAGE: {

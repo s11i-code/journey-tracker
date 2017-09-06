@@ -1,5 +1,7 @@
 import Button from './button';
 import Tile from './tile';
 import Modal from './modal';
+import DeleteJourneyButton from './deleteJourneyButton';
+import ListRow from './listRow';
 
-export { Button, Tile, Modal };
+export { ListRow, Button, Tile, Modal, DeleteJourneyButton };

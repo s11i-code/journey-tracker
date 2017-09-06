@@ -1,17 +1,24 @@
+import { Dimensions } from 'react-native';
+
 const veryDarkGrey = 'rgb(78, 93, 108)';
 const silverGrey = '#b5bdc5';
-const accentColor = 'rgb(156, 39, 176)';
 const midGrey = '#d2d7df';
 const waterColor = 'rgb(246, 247, 250)';
 // const darkerGrey = 'rgb(151, 163, 180)';
+const { width } = Dimensions.get('window');
 
+const accentColor = 'rgb(156, 39, 176)';
+const textColor = veryDarkGrey;
+const mutedColor = silverGrey;
+const listItemHeight = 50;
 export default {
   accentColor,
+  textColor,
+  mutedColor,
   layout: {
     flex: 1,
   },
   content: {
-    padding: 2,
     backgroundColor: waterColor,
     flex: 1,
     marginBottom: 40,
@@ -33,14 +40,33 @@ export default {
     fontSize: 16,
     fontWeight: 'bold',
   },
-  text: {
-    color: veryDarkGrey,
-  },
   tile: {
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 4,
     marginVertical: 2,
+  },
+  listRow: {
+    width,
+    borderBottomColor: midGrey,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 4,
+    alignItems: 'center',
+    height: listItemHeight,
+  },
+  listRowButton: {
+    width: listItemHeight,
+    height: listItemHeight,
+    borderRadius: 0,
+    padding: 0,
+    borderBottomColor: 'white',
+    borderBottomWidth: 1,
+    position: 'absolute',
+    top: 0,
+    right: 0,
   },
   tileText: {
     textAlign: 'center',
@@ -54,7 +80,7 @@ export default {
     padding: 20,
     borderColor: accentColor,
   },
-  defaultButtonText: {
+  buttonText: {
     color: 'white',
     fontWeight: 'bold',
     fontSize: 16,
@@ -63,11 +89,6 @@ export default {
     backgroundColor: silverGrey,
     padding: 20,
     borderColor: silverGrey,
-  },
-  subtleButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
   },
   buttonSpinner: {
     paddingLeft: 8,

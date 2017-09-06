@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text } from 'react-native';
-import { connect } from 'react-redux';
+import { View } from 'react-native';
 import moment from 'moment';
-import { deleteJourney } from '../../actions';
-import { Button, Tile } from '../shared';
+import { DeleteJourneyButton, Button, Tile } from '../shared';
 
 const styles = {
   container: {
@@ -28,22 +26,20 @@ const styles = {
   },
 };
 
-class Container extends Component {
+export default class extends Component {
   static get propTypes() {
     return {
-      discardPressed: PropTypes.bool.isRequired,
       journey: PropTypes.shape({
         id: PropTypes.number.isRequired,
         origin_id: PropTypes.number.isRequired,
         created_at: PropTypes.string.isRequired,
       }).isRequired,
       locations: PropTypes.array.isRequired,
-      deleteJourney: PropTypes.func.isRequired,
     };
   }
 
   render() {
-    const { journey, locations, discardPressed } = this.props;
+    const { journey, locations } = this.props;
     const origin = locations.filter(location => location.id === journey.origin_id)[0];
     const startedAgo = moment(journey.created_at).fromNow();
 
@@ -51,13 +47,12 @@ class Container extends Component {
       <View style={styles.container}>
         <Tile text={`You started a journey from ${origin.name} at ${startedAgo}.`} style={styles.tile}>
           <View style={styles.buttonArea}>
-            <Button
-              theme={'subtle'}
+            <DeleteJourneyButton
+              theme='subtle'
               text='Discard'
               icon='trash'
-              loading={discardPressed}
               style={styles.button}
-              onPress={this.props.deleteJourney.bind(null, journey.id)}
+              journeyId={journey.id}
             />
             <Button style={styles.button} text='End Journey' onPress={() => {}} />
           </View>
@@ -67,17 +62,3 @@ class Container extends Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  discardPressed: state.loading.deleteJourney,
-});
-
-const mapDispatchToProps = dispatch => ({
-  deleteJourney: (id) => {
-    dispatch(deleteJourney(id));
-  },
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Container);

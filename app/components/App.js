@@ -6,7 +6,9 @@ import Tabs from 'react-native-tabs';
 import theme from '../styles/theme';
 import { fetchLocations, fetchJourneys, changePage } from '../actions';
 import HomePage from './home';
+import JourneysPage from './journeys';
 import StartJourneyPage from './startJourney';
+import * as propTypes from '../utils/PropTypes';
 
 class Container extends Component {
   static get defaultProps() {
@@ -18,14 +20,8 @@ class Container extends Component {
 
   static get propTypes() {
     return {
-      journeys: PropTypes.arrayOf(
-        PropTypes.shape({
-          origin_id: PropTypes.number,
-        })),
-      locations: PropTypes.arrayOf(
-        PropTypes.shape({
-          name: PropTypes.string,
-        })),
+      journeys: propTypes.journeys,
+      locations: propTypes.locations,
       page: PropTypes.string.isRequired,
       fetchLocations: PropTypes.func.isRequired,
       fetchJourneys: PropTypes.func.isRequired,
@@ -42,7 +38,6 @@ class Container extends Component {
     this.props.fetchJourneys();
   }
 
-
   renderPage() {
     const { journeys, locations, page } = this.props;
 
@@ -52,9 +47,11 @@ class Container extends Component {
 
     switch (page) {
       case 'home':
-        return <HomePage journey={newestOngoingJourney} journeys={journeys} locations={locations} />;
+        return <HomePage journey={newestOngoingJourney} {...{ journeys, locations }} />;
+      case 'journeys':
+        return <JourneysPage {...{ journeys, locations }} />;
       case 'startJourney':
-        return <StartJourneyPage journeys={journeys} locations={locations} />;
+        return <StartJourneyPage {...{ journeys, locations }} />;
       default:
         return <View><Text>Page not found</Text></View>;
     }
@@ -76,7 +73,8 @@ class Container extends Component {
           onSelect={el => this.props.changePage(el.props.name)}
         >
           <Text name='home'>Home</Text>
-          <Text name='startJourney' >Start Journey</Text>
+          <Text name='journeys'>Journeys</Text>
+          <Text name='startJourney'>Start Journey</Text>
         </Tabs>
 
       </View>

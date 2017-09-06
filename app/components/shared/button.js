@@ -8,12 +8,19 @@ import theme from '../../styles/theme';
 const CustomisedButton = (props) => {
   const { loading, icon, children, style, onPress, text } = props;
   const buttonStyle = theme[`${props.theme}Button`];
-  const textStyle = theme[`${props.theme}ButtonText`];
+  const textStyle = theme.buttonText;
   const displayIcon = icon && !loading;
+  const iconPadding = icon && text ? 6 : 0;
+
   return (
     <Button loading={loading} style={[buttonStyle, style]} onPress={onPress}>
       { text ? <Text style={textStyle}>{text}</Text> : null}
-      { displayIcon ? <Icon name={icon} size={20} style={[textStyle, { paddingLeft: 6 }]} /> : null}
+      { displayIcon ?
+        (<Icon
+          name={icon}
+          size={20}
+          style={[textStyle, { paddingLeft: iconPadding }]}
+        />) : null}
       { loading ? <Spinner style={theme.buttonSpinner} color={textStyle.color} /> : null }
       { children }
     </Button>
