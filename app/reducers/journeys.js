@@ -6,11 +6,8 @@ export default (state = [], action) => {
       return [...state, ...action.payload];
     case CREATE_JOURNEY:
       return [
+        action.payload.journey,
         ...state,
-        {
-          originId: action.originId,
-          createdAt: new Date(),
-        },
       ];
     case DELETE_JOURNEY:
       return state.filter(journey => journey.id !== action.payload.id);

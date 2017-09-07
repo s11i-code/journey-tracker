@@ -45,7 +45,7 @@ export default class extends Component {
 
     return (
       <View style={styles.container}>
-        <Tile text={`You started a journey from ${origin.name} at ${startedAgo}.`} style={styles.tile}>
+        <Tile text={`You started a journey from ${origin.name} ${startedAgo}.`} style={styles.tile}>
           <View style={styles.buttonArea}>
             <DeleteJourneyButton
               theme='subtle'

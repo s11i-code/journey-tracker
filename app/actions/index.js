@@ -58,7 +58,7 @@ export const createJourney = originId => (dispatch) => {
       .then((journey) => {
         dispatch({
           type: types.CREATE_JOURNEY,
-          payload: journey,
+          payload: { journey },
         });
         dispatch(setLoading({ journeys: false }));
         dispatch(changePage('home'));
