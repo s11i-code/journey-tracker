@@ -10,13 +10,19 @@ const { width } = Dimensions.get('window');
 const accentColor = 'rgb(156, 39, 176)';
 const textColor = veryDarkGrey;
 const mutedColor = silverGrey;
-const listItemHeight = 50;
+const listItemHeight = 55;
 export default {
   accentColor,
   textColor,
   mutedColor,
   layout: {
     flex: 1,
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: veryDarkGrey,
   },
   content: {
     backgroundColor: waterColor,
@@ -37,6 +43,7 @@ export default {
     borderBottomWidth: 0.5,
   },
   headingText: {
+    color: veryDarkGrey,
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -98,10 +105,5 @@ export default {
     paddingHorizontal: 2,
     paddingTop: 100,
   },
-  modalTitle: {
-    textAlign: 'center',
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: veryDarkGrey,
-  },
+
 };

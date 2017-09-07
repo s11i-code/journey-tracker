@@ -15,7 +15,7 @@ const Component = (props) => {
     >
       <View style={theme.modal}>
         <View>
-          { title ? <Text style={theme.modalTitle} >{ title } </Text> : null }
+          { title ? <Text style={[theme.title, { paddingTop: 50 }]} >{ title } </Text> : null }
           { children }
         </View>
       </View>

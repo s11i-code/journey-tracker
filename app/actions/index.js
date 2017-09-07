@@ -45,7 +45,6 @@ export const fetchLocations = () => (dispatch) => {
 
 export const createJourney = originId => (dispatch) => {
   dispatch(setLoading({ journeys: true }));
-
   return (
     fetch(JOURNEYS_URL,
       { headers: {

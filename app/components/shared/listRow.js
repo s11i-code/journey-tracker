@@ -19,4 +19,5 @@ ListRow.defaultProps = {
   text: null,
   children: null,
 };
+
 export default ListRow;

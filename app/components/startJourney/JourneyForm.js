@@ -1,76 +1,45 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Picker, View } from 'react-native';
-import { connect } from 'react-redux';
-import shortid from 'shortid';
-import { createJourney } from '../../actions';
-import { Button } from '../shared';
+import { ListView, View } from 'react-native';
+import ListRow from './ListRow';
+import * as propTypes from '../../utils/PropTypes';
 
-class Form extends Component {
+export default class extends Component {
+  static get propTypes() {
+    return {
+      locations: propTypes.locations.isRequired,
+    };
+  }
+
   static get defaultProps() {
     return {
       locations: [],
     };
   }
 
-  static get propTypes() {
-    return {
-      locations: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number,
-        name: PropTypes.string,
-      })),
-      onSubmit: PropTypes.func.isRequired,
-      submitPressed: PropTypes.bool.isRequired,
+  constructor(props) {
+    super(props);
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+    this.state = {
+      dataSource: ds.cloneWithRows(props.locations),
     };
   }
 
-  constructor(props) {
-    super(props);
-    this.state = { locationId: (props.locations[0] || {}).id };
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(nextProps.locations),
+    });
   }
 
   render() {
-    const { locationId } = this.state;
-    const { locations, onSubmit, submitPressed } = this.props;
-
     return (
-      <View>
-        { locations.length ? (
-          <Picker
-            selectedValue={locationId}
-            onValueChange={id => this.setState({ locationId: id })}
-          >
-            { locations.map(location => (
-              <Picker.Item
-                key={shortid.generate()}
-                label={location.name}
-                value={location.id}
-              />)) }
-          </Picker>
-        ) : null }
-
-        <Button
-          text='GO!'
-          onPress={onSubmit.bind(null, locationId)}
-          loading={submitPressed}
+      <View style={{ flex: 1, justifyContent: 'flex-start' }}>
+        <ListView
+          dataSource={this.state.dataSource}
+          locations={this.props.locations}
+          enableEmptySections
+          renderRow={location => (<ListRow location={location} />)}
         />
-      </View>);
+      </View>
+    );
   }
 }
-
-
-const mapStateToProps = state => ({
-  locations: state.locations,
-  submitPressed: state.loading.createJourney,
-});
-
-const mapDispatchToProps = dispatch => ({
-  onSubmit: (originId) => {
-    dispatch(createJourney(originId));
-  },
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Form);
