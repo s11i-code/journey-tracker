@@ -6,8 +6,7 @@ import moment from 'moment';
 import { Tile, Button } from '../shared';
 import { changePage } from '../../actions';
 import * as propTypes from '../../utils/PropTypes';
-import EndJourney from './EndJourney';
-
+import JourneyButtons from './JourneyButtons';
 
 const getFeaturedJourney = (journeys) => {
   const twoHoursAgo = moment().subtract(2, 'hours');
@@ -46,7 +45,7 @@ class HomePage extends Component {
           style={{ marginTop: 120, marginBottom: 40 }}
         />
         {featuredJourney ? (
-          <EndJourney
+          <JourneyButtons
             locations={locations}
             journey={featuredJourney}
           />) :
