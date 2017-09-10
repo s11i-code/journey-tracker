@@ -10,7 +10,8 @@ import JourneysPage from './journeys';
 import StartJourneyPage from './startJourney';
 import * as propTypes from '../utils/PropTypes';
 
-class Container extends Component {
+
+class App extends Component {
   static get defaultProps() {
     return {
       journeys: [],
@@ -41,13 +42,9 @@ class Container extends Component {
   renderPage() {
     const { journeys, locations, page } = this.props;
 
-    const ongoingJourneys = journeys
-      .filter(journey => !journey.destination);
-    const newestOngoingJourney = ongoingJourneys[0] ? ongoingJourneys[0] : null;
-
     switch (page) {
       case 'home':
-        return <HomePage journey={newestOngoingJourney} {...{ journeys, locations }} />;
+        return <HomePage {...{ journeys, locations }} />;
       case 'journeys':
         return <JourneysPage {...{ journeys, locations }} />;
       case 'startJourney':
@@ -69,7 +66,7 @@ class Container extends Component {
         <Tabs
           selected={page}
           style={theme.tabs}
-          selectedStyle={{ color: theme.accentColor }}
+          selectedStyle={{ borderTopWidth: 2, borderTopColor: 'red', color: theme.accentColor }}
           onSelect={el => this.props.changePage(el.props.name)}
         >
           <Text name='home'>Home</Text>
@@ -106,4 +103,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Container);
+)(App);

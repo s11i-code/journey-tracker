@@ -57,7 +57,6 @@ export default class extends Component {
             <Button style={styles.button} text='End Journey' onPress={() => {}} />
           </View>
         </Tile>
-
       </View>
     );
   }
