@@ -3,5 +3,14 @@ import Tile from './tile';
 import Modal from './modal';
 import DeleteJourneyButton from './deleteJourneyButton';
 import ListRow from './listRow';
+import LocationSelector from './locationSelector';
 
-export { ListRow, Button, Tile, Modal, DeleteJourneyButton };
+export {
+  ListRow,
+  Button,
+  Tile,
+  Modal,
+  DeleteJourneyButton,
+  EndJourneyButton,
+  LocationSelector,
+};

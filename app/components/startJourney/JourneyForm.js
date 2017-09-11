@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { ListView, View } from 'react-native';
-import ListRow from './ListRow';
+import { View, ActivityIndicator } from 'react-native';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createJourney } from '../../actions';
+import { LocationSelector } from '../shared';
 import * as propTypes from '../../utils/PropTypes';
 
-export default class extends Component {
+class JourneyForm extends Component {
   static get propTypes() {
     return {
       locations: propTypes.locations.isRequired,
+      onSelect: PropTypes.func.isRequired,
+      requestMade: PropTypes.bool.isRequired,
     };
   }
 
@@ -16,30 +21,32 @@ export default class extends Component {
     };
   }
 
-  constructor(props) {
-    super(props);
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    this.state = {
-      dataSource: ds.cloneWithRows(props.locations),
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(nextProps.locations),
-    });
-  }
-
   render() {
+    const { onSelect, requestMade } = this.props;
+
+    if (requestMade) {
+      return <ActivityIndicator />;
+    }
     return (
       <View style={{ flex: 1, justifyContent: 'flex-start' }}>
-        <ListView
-          dataSource={this.state.dataSource}
-          locations={this.props.locations}
-          enableEmptySections
-          renderRow={location => (<ListRow location={location} />)}
-        />
+        <LocationSelector locations={this.props.locations} onSelect={onSelect} />
       </View>
     );
   }
 }
+
+
+const mapStateToProps = state => ({
+  requestMade: state.loading.createJourney,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onSelect: (originId) => {
+    dispatch(createJourney(originId));
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(JourneyForm);
