@@ -12,7 +12,7 @@ const getFeaturedJourney = (journeys) => {
   const twoHoursAgo = moment().subtract(2, 'hours');
 
   const recentJourneys = journeys
-    .filter(journey => moment(journey.created_at).isAfter(twoHoursAgo) && !journey.destination);
+    .filter(journey => moment(journey.created_at).isAfter(twoHoursAgo) && !journey.destination_id);
   return recentJourneys.length ? recentJourneys[0] : null;
 };
 

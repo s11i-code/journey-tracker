@@ -2,7 +2,6 @@ import * as types from './types';
 import { JOURNEYS_URL } from '../utils/urls';
 import { setLoading, changePage } from '.';
 
-
 export const fetchJourneys = () => (dispatch) => {
   dispatch(setLoading({ journeys: true }));
 
@@ -62,5 +61,28 @@ export const deleteJourney = id => (dispatch) => {
         });
       })
 
+  );
+};
+
+export const endJourney = (id, destinationId) => (dispatch) => {
+  dispatch(setLoading({ endJourney: true }));
+
+  return (
+    fetch(`${JOURNEYS_URL}/${id}/end?destination_id=${destinationId}`,
+      { headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      })
+      .then(res => res.json())
+      .then((journey) => {
+        dispatch({
+          type: types.END_JOURNEY,
+          payload: { journey },
+        });
+        dispatch(setLoading({ endJourney: false }));
+        dispatch(changePage('journeys'));
+      })
   );
 };

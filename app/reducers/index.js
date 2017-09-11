@@ -8,6 +8,7 @@ const DEFAULT_LOADING_STATUSES = {
   journeys: false,
   deleteJourney: false,
   createJourney: false,
+  endJourney: false,
 };
 
 const loadingReducer = (state = DEFAULT_LOADING_STATUSES, action) => {

@@ -1,27 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Text, View } from 'react-native';
+import { Modal, Text } from 'react-native';
+import Layout from './layout';
 import theme from '../../styles/theme';
 
 const Component = (props) => {
   const { visible, title, children, onRequestClose } = props;
 
-  return (<View style={{ marginTop: 22 }}>
+  return (
     <Modal
       animationType={'slide'}
       transparent={false}
       visible={visible}
       onRequestClose={() => onRequestClose}
     >
-      <View style={theme.modal}>
-        <View>
-          { title ? <Text style={[theme.title, { paddingTop: 50 }]} >{ title } </Text> : null }
-          { children }
-        </View>
-      </View>
+      <Layout>
+        { title ? <Text style={[theme.title, { marginVertical: 40 }]} >{ title } </Text> : null }
+        { children }
+      </Layout>
     </Modal>
-
-  </View>);
+  );
 };
 
 Component.propTypes = {
@@ -34,7 +32,7 @@ Component.propTypes = {
 Component.defaultProps = {
   title: null,
   children: null,
-  visible: true,
+  visible: false,
   onRequestClose: () => {},
 };
 export default Component;

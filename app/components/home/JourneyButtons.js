@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import moment from 'moment';
-import { DeleteJourneyButton, Button, Tile } from '../shared';
+import {
+  EndJourneyButton,
+  DeleteJourneyButton,
+  Tile,
+} from '../shared';
 
 const styles = {
   container: {
     flex: 1,
-    justifyContent:
-    'flex-start',
+    justifyContent: 'flex-start',
   },
   tile: {
     marginTop: 40,
@@ -19,9 +22,11 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  button: {
-    flex: 1,
+  flexItem: {
     width: 250,
+    flex: 1,
+  },
+  button: {
     marginHorizontal: 2,
   },
 };
@@ -47,14 +52,21 @@ export default class extends Component {
       <View style={styles.container}>
         <Tile text={`You started a journey from ${origin.name} ${startedAgo}.`} style={styles.tile}>
           <View style={styles.buttonArea}>
-            <DeleteJourneyButton
-              theme='subtle'
-              text='Discard'
-              icon='trash'
-              style={styles.button}
-              journeyId={journey.id}
-            />
-            <Button style={styles.button} text='End Journey' onPress={() => {}} />
+            <View style={styles.flexItem}>
+              <DeleteJourneyButton
+                theme='subtle'
+                text='Discard'
+                icon='trash'
+                style={styles.button}
+                journeyId={journey.id}
+              />
+            </View>
+            <View style={styles.flexItem}>
+              <EndJourneyButton
+                style={styles.button}
+                journeyId={journey.id}
+              />
+            </View>
           </View>
         </Tile>
       </View>

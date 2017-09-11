@@ -7,7 +7,7 @@ const waterColor = 'rgb(246, 247, 250)';
 // const darkerGrey = 'rgb(151, 163, 180)';
 const { width } = Dimensions.get('window');
 
-const accentColor = 'rgb(156, 39, 176)';
+const accentColor = '#009688';
 const textColor = veryDarkGrey;
 const mutedColor = silverGrey;
 const listItemHeight = 55;
@@ -100,10 +100,6 @@ export default {
   buttonSpinner: {
     paddingLeft: 8,
     paddingTop: 16,
-  },
-  modal: {
-    paddingHorizontal: 2,
-    paddingTop: 100,
   },
 
 };
