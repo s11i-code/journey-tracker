@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Text, ActivityIndicator as Spinner } from 'react-native';
-import Button from 'apsl-react-native-button';
+import NativeButton from 'apsl-react-native-button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import theme from '../../styles/theme';
 
-const CustomisedButton = (props) => {
+const Button = (props) => {
   const { loading, icon, children, style, onPress, text } = props;
   const buttonStyle = theme[`${props.theme}Button`];
   const textStyle = theme.buttonText;
@@ -13,7 +13,7 @@ const CustomisedButton = (props) => {
   const iconPadding = icon && text ? 6 : 0;
 
   return (
-    <Button loading={loading} style={[buttonStyle, style]} onPress={onPress}>
+    <NativeButton loading={loading} style={[buttonStyle, style]} onPress={onPress}>
       { text ? <Text style={textStyle}>{text}</Text> : null}
       { displayIcon ?
         (<Icon
@@ -23,11 +23,11 @@ const CustomisedButton = (props) => {
         />) : null}
       { loading ? <Spinner style={theme.buttonSpinner} color={textStyle.color} /> : null }
       { children }
-    </Button>
+    </NativeButton>
   );
 };
 
-CustomisedButton.propTypes = {
+Button.propTypes = {
   loading: PropTypes.bool,
   onPress: PropTypes.func.isRequired,
   children: PropTypes.node,
@@ -37,7 +37,7 @@ CustomisedButton.propTypes = {
   theme: PropTypes.oneOf(['default', 'subtle']),
 };
 
-CustomisedButton.defaultProps = {
+Button.defaultProps = {
   loading: false,
   text: null,
   children: null,
@@ -46,4 +46,4 @@ CustomisedButton.defaultProps = {
   theme: 'default',
 };
 
-export default CustomisedButton;
+export default Button;
