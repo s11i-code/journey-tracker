@@ -21,7 +21,7 @@ export const fetchJourneys = () => (dispatch) => {
 };
 
 export const createJourney = originId => (dispatch) => {
-  dispatch(setLoading({ journeys: true }));
+  dispatch(setLoading({ createJourney: true }));
   return (
     fetch(JOURNEYS_URL,
       { headers: {
@@ -37,7 +37,7 @@ export const createJourney = originId => (dispatch) => {
           type: types.CREATE_JOURNEY,
           payload: { journey },
         });
-        dispatch(setLoading({ journeys: false }));
+        dispatch(setLoading({ createJourney: false }));
         dispatch(changePage('home'));
       })
 
