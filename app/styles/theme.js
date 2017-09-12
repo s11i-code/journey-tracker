@@ -60,7 +60,7 @@ export default {
     borderBottomWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: 4,
+    paddingLeft: 8,
     alignItems: 'center',
     height: listItemHeight,
   },

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
+import _ from 'lodash';
 import moment from 'moment';
 import { DeleteJourneyButton, ListRow } from '../shared';
 import theme from '../../styles/theme';
@@ -7,14 +8,18 @@ import * as propTypes from '../../utils/PropTypes';
 
 const TEXT_STYLES = {
   color: theme.textColor,
-  fontSize: 15,
+};
+const titleStyles = {
+  fontWeight: 'bold',
+  paddingBottom: 4,
 };
 
-const timeDifferenceToString = (before, after) =>
-  moment
-    .duration(after.diff(before))
-    .humanize()
-    .replace('minutes', 'mins'); // saving space
+const timeDifferenceToString = (before, after) => {
+  const diffMs = moment.duration(after.diff(before));
+  const diffMins = _.round(diffMs / 3600);
+  const diffSecs = _.round((diffMs / 60) % 60);
+  return `${diffMins} min ${diffSecs} s`;
+};
 
 export default class extends Component {
   static get propTypes() {
@@ -24,43 +29,28 @@ export default class extends Component {
     };
   }
 
-  static renderStart(origin, journey) {
-    const startTime = moment(journey.created_at);
-
-    return <Text>{startTime.fromNow()} from {origin.name}</Text>;
-  }
-
-  static renderEnd(destination, journey) {
-    const timeDiff = timeDifferenceToString(moment(journey.created_at), moment(journey.end_time));
-    return <Text>{destination.name} ({ timeDiff})</Text>;
-  }
-
   render() {
     const { journey, locations } = this.props;
     const origin = locations.filter(loc => loc.id === journey.origin_id)[0];
-    const destination = locations.filter(loc => loc.id === journey.destination_id)[0];
-    const deleteButton = (
-      <DeleteJourneyButton
-        style={theme.listRowButton}
-        journeyId={journey.id}
-        icon='trash'
-      />);
+    const dest = locations.filter(loc => loc.id === journey.destination_id)[0];
+    const startTime = moment(journey.created_at);
+    const timeSinceStart = startTime.fromNow();
+    const duration = timeDifferenceToString(startTime, moment(journey.end_time));
 
-    if (destination) {
-      return (
-        <ListRow>
-          <Text style={TEXT_STYLES}>
-            {this.constructor.renderStart(origin, journey)} to {this.constructor.renderEnd(origin, journey)}
-          </Text>
-          {deleteButton}
-        </ListRow>);
-    }
     return (
       <ListRow>
         <Text style={TEXT_STYLES}>
-          {this.constructor.renderStart(origin, journey)} (unending)
+          <Text style={titleStyles}>
+            {dest ? `${origin.name} to ${dest.name}: ${duration}` : `From ${origin.name} `}
+          </Text>
+          {'\n'}
+          <Text>{ _.capitalize(timeSinceStart) }</Text>
         </Text>
-        {deleteButton}
+        <DeleteJourneyButton
+          style={theme.listRowButton}
+          journeyId={journey.id}
+          icon='trash'
+        />
       </ListRow>);
   }
 }
